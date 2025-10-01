@@ -1,0 +1,446 @@
+[gd_scene load_steps=31 format=3 uid="uid://c27tndo52hemr"]
+
+[ext_resource type="Script" uid="uid://bm50wegc8u161" path="res://Scenes/main.gd" id="1_idj7w"]
+[ext_resource type="SystemFont" uid="uid://dlt8dbd1yyrd" path="res://Scenes/MenuFont.tres" id="1_r150o"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c1w88"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r150o"]
+content_margin_left = 15.0
+content_margin_top = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(1, 1, 1, 1)
+border_width_bottom = 1
+border_color = Color(0.821789, 0.821789, 0.821788, 1)
+
+[sub_resource type="SystemFont" id="SystemFont_c1w88"]
+font_names = PackedStringArray("Arial")
+generate_mipmaps = true
+multichannel_signed_distance_field = true
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_idj7w"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kln2b"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rgh2o"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pbw6q"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v1gob"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jw32o"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_50glp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vy5pj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bmxlf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4kpch"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_idj7w"]
+bg_color = Color(0.864675, 0.864675, 0.864675, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c1w88"]
+
+[sub_resource type="SystemFont" id="SystemFont_r150o"]
+font_names = PackedStringArray("Consolas")
+generate_mipmaps = true
+multichannel_signed_distance_field = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pbw6q"]
+content_margin_left = 3.0
+content_margin_top = 8.0
+content_margin_right = 3.0
+content_margin_bottom = 3.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kln2b"]
+bg_color = Color(0.862745, 0.862745, 0.862745, 1)
+border_width_top = 1
+border_color = Color(0.823529, 0.823529, 0.823529, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rgh2o"]
+bg_color = Color(0.823529, 0.823529, 0.823529, 1)
+border_width_left = 1
+border_color = Color(0.823529, 0.823529, 0.823529, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_grg3l"]
+
+[sub_resource type="SystemFont" id="SystemFont_frkhe"]
+font_names = PackedStringArray("Arial")
+multichannel_signed_distance_field = true
+
+[sub_resource type="LabelSettings" id="LabelSettings_1p5hy"]
+font = SubResource("SystemFont_frkhe")
+font_size = 12
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v1gob"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jw32o"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_50glp"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_vy5pj"]
+font = ExtResource("1_r150o")
+font_size = 12
+font_color = Color(0, 0, 0.243137, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bmxlf"]
+bg_color = Color(0.886262, 0.886261, 0.886262, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4kpch"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+bg_color = Color(0.716296, 0.716296, 0.716296, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.601223, 0.601223, 0.601223, 1)
+
+[node name="Main" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_c1w88")
+script = ExtResource("1_idj7w")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Top" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_r150o")
+
+[node name="MenuBar" type="MenuBar" parent="VBoxContainer/Top"]
+layout_mode = 2
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/h_separation = 9
+theme_override_fonts/font = SubResource("SystemFont_c1w88")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_idj7w")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_kln2b")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_rgh2o")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_pbw6q")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_v1gob")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_jw32o")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_50glp")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_vy5pj")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_bmxlf")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_4kpch")
+
+[node name="FileMenu" type="PopupMenu" parent="VBoxContainer/Top/MenuBar"]
+title = "File"
+position = Vector2i(16, 19)
+size = Vector2i(100, 132)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_accelerator_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_separator_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_separator_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_r150o")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/panel = SubResource("StyleBoxFlat_idj7w")
+item_count = 7
+item_0/text = "New"
+item_0/id = 0
+item_1/text = "New Window"
+item_1/id = 1
+item_2/text = "Open..."
+item_2/id = 2
+item_3/text = "Save"
+item_3/id = 3
+item_4/text = "Save As..."
+item_4/id = 4
+item_5/id = 5
+item_5/separator = true
+item_6/text = "Exit"
+item_6/id = 6
+
+[node name="EditMenu" type="PopupMenu" parent="VBoxContainer/Top/MenuBar"]
+auto_translate_mode = 1
+title = "Edit"
+position = Vector2i(48, 24)
+size = Vector2i(114, 266)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_accelerator_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_separator_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_separator_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_r150o")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/panel = SubResource("StyleBoxFlat_idj7w")
+item_count = 15
+item_0/text = "Undo"
+item_0/id = 0
+item_1/id = 1
+item_1/separator = true
+item_2/text = "Cut"
+item_2/id = 2
+item_3/text = "Copy"
+item_3/id = 3
+item_4/text = "Paste"
+item_4/id = 4
+item_5/text = "Delete"
+item_5/id = 5
+item_6/id = 6
+item_6/separator = true
+item_7/text = "Find..."
+item_7/id = 7
+item_8/text = "Find Next"
+item_8/id = 8
+item_9/text = "Find Previous"
+item_9/id = 9
+item_10/text = "Replace..."
+item_10/id = 10
+item_11/text = "Go To..."
+item_11/id = 11
+item_12/id = 12
+item_12/separator = true
+item_13/text = "Select All"
+item_13/id = 13
+item_14/text = "Time/Date"
+item_14/id = 14
+
+[node name="FormatMenu" type="PopupMenu" parent="VBoxContainer/Top/MenuBar"]
+auto_translate_mode = 1
+title = "Format"
+position = Vector2i(48, 24)
+size = Vector2i(114, 266)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_accelerator_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_separator_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_separator_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_r150o")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/panel = SubResource("StyleBoxFlat_idj7w")
+
+[node name="View" type="PopupMenu" parent="VBoxContainer/Top/MenuBar"]
+auto_translate_mode = 1
+title = "View"
+position = Vector2i(48, 24)
+size = Vector2i(114, 266)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_accelerator_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_separator_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_separator_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_r150o")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/panel = SubResource("StyleBoxFlat_idj7w")
+
+[node name="View2" type="PopupMenu" parent="VBoxContainer/Top/MenuBar"]
+auto_translate_mode = 1
+title = "Help"
+position = Vector2i(48, 24)
+size = Vector2i(114, 266)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_accelerator_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_separator_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_separator_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_r150o")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/panel = SubResource("StyleBoxFlat_idj7w")
+
+[node name="Body" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_c1w88")
+
+[node name="TextEdit" type="TextEdit" parent="VBoxContainer/Body"]
+layout_mode = 2
+theme_override_colors/background_color = Color(1, 1, 1, 1)
+theme_override_colors/font_placeholder_color = Color(0, 0, 0, 1)
+theme_override_colors/font_readonly_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/caret_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("SystemFont_r150o")
+theme_override_styles/normal = SubResource("StyleBoxFlat_pbw6q")
+placeholder_text = "Hello World!"
+wrap_mode = 1
+caret_blink = true
+
+[node name="Bottom" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kln2b")
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Bottom"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Bottom/MarginContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/Bottom/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxFlat_rgh2o")
+
+[node name="Label" type="Label" parent="VBoxContainer/Bottom/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_grg3l")
+text = "100%"
+label_settings = SubResource("LabelSettings_1p5hy")
+vertical_alignment = 1
+
+[node name="OpenFileDialog" type="FileDialog" parent="."]
+title = "Open a File"
+ok_button_text = "Open"
+dialog_hide_on_ok = true
+file_mode = 0
+access = 2
+show_hidden_files = true
+use_native_dialog = true
+
+[node name="SaveFileDialog" type="FileDialog" parent="."]
+dialog_hide_on_ok = true
+access = 2
+use_native_dialog = true
+
+[node name="UnsavedConfirmDialogue" type="Window" parent="."]
+title = "Rotepad"
+initial_position = 4
+size = Vector2i(300, 100)
+visible = false
+transient = true
+exclusive = true
+popup_window = true
+extend_to_title = true
+force_native = true
+theme_override_colors/title_color = Color(0, 0, 0, 1)
+theme_override_fonts/title_font = ExtResource("1_r150o")
+theme_override_font_sizes/title_font_size = 12
+theme_override_styles/embedded_border = SubResource("StyleBoxFlat_v1gob")
+theme_override_styles/embedded_unfocused_border = SubResource("StyleBoxFlat_jw32o")
+
+[node name="PanelContainer" type="PanelContainer" parent="UnsavedConfirmDialogue"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_50glp")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UnsavedConfirmDialogue/PanelContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UnsavedConfirmDialogue/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 12
+
+[node name="Label" type="Label" parent="UnsavedConfirmDialogue/PanelContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Do you want to save your changes?"
+label_settings = SubResource("LabelSettings_vy5pj")
+vertical_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="UnsavedConfirmDialogue/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bmxlf")
+
+[node name="MarginContainer" type="MarginContainer" parent="UnsavedConfirmDialogue/PanelContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UnsavedConfirmDialogue/PanelContainer/VBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 7
+alignment = 2
+
+[node name="SaveButton" type="Button" parent="UnsavedConfirmDialogue/PanelContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_r150o")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_4kpch")
+text = "Save"
+
+[node name="DontSaveButton" type="Button" parent="UnsavedConfirmDialogue/PanelContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_r150o")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_4kpch")
+text = "Don't Save"
+
+[node name="CancelButton" type="Button" parent="UnsavedConfirmDialogue/PanelContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_r150o")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_4kpch")
+text = "Cancel"
+
+[connection signal="id_pressed" from="VBoxContainer/Top/MenuBar/FileMenu" to="." method="_on_file_menu_id_pressed"]
+[connection signal="text_changed" from="VBoxContainer/Body/TextEdit" to="." method="_on_text_edit_text_changed"]
+[connection signal="canceled" from="OpenFileDialog" to="." method="_on_open_file_dialog_canceled"]
+[connection signal="file_selected" from="OpenFileDialog" to="." method="_on_open_file_dialog_file_selected"]
+[connection signal="canceled" from="SaveFileDialog" to="." method="_on_save_file_dialog_canceled"]
+[connection signal="confirmed" from="SaveFileDialog" to="." method="_on_save_file_dialog_confirmed"]
+[connection signal="file_selected" from="SaveFileDialog" to="." method="_on_save_file_dialog_file_selected"]
+[connection signal="close_requested" from="UnsavedConfirmDialogue" to="." method="_on_window_close_requested"]
+[connection signal="pressed" from="UnsavedConfirmDialogue/PanelContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="UnsavedConfirmDialogue/PanelContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/DontSaveButton" to="." method="_on_dont_save_button_pressed"]
+[connection signal="pressed" from="UnsavedConfirmDialogue/PanelContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]

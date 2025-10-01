@@ -1,0 +1,6 @@
+[gd_resource type="SystemFont" format=3 uid="uid://dlt8dbd1yyrd"]
+
+[resource]
+font_names = PackedStringArray("Arial")
+generate_mipmaps = true
+multichannel_signed_distance_field = true
