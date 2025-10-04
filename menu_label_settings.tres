@@ -1,0 +1,8 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://dxgt60k8v3dj2"]
+
+[ext_resource type="SystemFont" uid="uid://dlt8dbd1yyrd" path="res://Scenes/MenuFont.tres" id="1_flp7s"]
+
+[resource]
+font = ExtResource("1_flp7s")
+font_size = 12
+font_color = Color(0, 0, 0, 1)

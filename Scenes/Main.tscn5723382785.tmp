@@ -651,7 +651,6 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_4kpch")
 text = "Cancel"
 
 [connection signal="id_pressed" from="VBoxContainer/Top/MenuBar/FileMenu" to="." method="_on_file_menu_id_pressed"]
-[connection signal="id_pressed" from="VBoxContainer/Top/MenuBar/EditMenu" to="." method="_on_edit_menu_id_pressed"]
 [connection signal="text_changed" from="VBoxContainer/Body/TextEdit" to="." method="_on_text_edit_text_changed"]
 [connection signal="canceled" from="OpenFileDialog" to="." method="_on_open_file_dialog_canceled"]
 [connection signal="file_selected" from="OpenFileDialog" to="." method="_on_open_file_dialog_file_selected"]

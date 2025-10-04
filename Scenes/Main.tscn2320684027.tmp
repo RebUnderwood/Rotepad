@@ -307,7 +307,7 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_c1w88")
 [node name="TextEdit" type="TextEdit" parent="VBoxContainer/Body"]
 layout_mode = 2
 theme_override_colors/background_color = Color(1, 1, 1, 1)
-theme_override_colors/font_placeholder_color = Color(0.716296, 0.716296, 0.716296, 1)
+theme_override_colors/font_placeholder_color = Color(0, 0, 0, 1)
 theme_override_colors/font_readonly_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/caret_color = Color(0, 0, 0, 1)
@@ -315,7 +315,6 @@ theme_override_fonts/font = SubResource("SystemFont_r150o")
 theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBoxFlat_pbw6q")
 placeholder_text = "Hello World!"
-deselect_on_focus_loss_enabled = false
 wrap_mode = 1
 caret_blink = true
 
@@ -462,7 +461,7 @@ auto_translate_mode = 1
 title = "Search"
 initial_position = 4
 size = Vector2i(325, 109)
-visible = false
+transient = true
 always_on_top = true
 extend_to_title = true
 force_native = true
@@ -511,7 +510,7 @@ theme_override_colors/clear_button_color_pressed = Color(0, 0, 0, 1)
 theme_override_colors/clear_button_color = Color(0, 0, 0, 1)
 theme_override_colors/selection_color = Color(0, 0, 0, 1)
 theme_override_colors/caret_color = Color(0, 0, 0, 1)
-theme_override_colors/font_placeholder_color = Color(0.54099, 0.54099, 0.54099, 1)
+theme_override_colors/font_placeholder_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
 theme_override_colors/font_uneditable_color = Color(0, 0, 0, 1)
@@ -519,7 +518,8 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_r150o")
 theme_override_font_sizes/font_size = 12
 theme_override_styles/normal = SubResource("StyleBoxFlat_grg3l")
-placeholder_text = "Search for..."
+text = "ryyetyertyeyetyery"
+placeholder_text = "uytiyuiyi"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="SearchDialogue/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -584,36 +584,15 @@ alignment = 1
 
 [node name="UpDirectionRadioButton" type="CheckBox" parent="SearchDialogue/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_r150o")
 theme_override_font_sizes/font_size = 12
-button_pressed = true
 button_group = ExtResource("4_pbw6q")
 text = "Up"
 
 [node name="DownDirectionRadioButton" type="CheckBox" parent="SearchDialogue/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_r150o")
 theme_override_font_sizes/font_size = 12
 button_group = ExtResource("4_pbw6q")
@@ -651,7 +630,6 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_4kpch")
 text = "Cancel"
 
 [connection signal="id_pressed" from="VBoxContainer/Top/MenuBar/FileMenu" to="." method="_on_file_menu_id_pressed"]
-[connection signal="id_pressed" from="VBoxContainer/Top/MenuBar/EditMenu" to="." method="_on_edit_menu_id_pressed"]
 [connection signal="text_changed" from="VBoxContainer/Body/TextEdit" to="." method="_on_text_edit_text_changed"]
 [connection signal="canceled" from="OpenFileDialog" to="." method="_on_open_file_dialog_canceled"]
 [connection signal="file_selected" from="OpenFileDialog" to="." method="_on_open_file_dialog_file_selected"]
@@ -661,6 +639,3 @@ text = "Cancel"
 [connection signal="pressed" from="UnsavedConfirmDialogue/PanelContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="UnsavedConfirmDialogue/PanelContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/DontSaveButton" to="." method="_on_dont_save_button_pressed"]
 [connection signal="pressed" from="UnsavedConfirmDialogue/PanelContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
-[connection signal="search_for" from="SearchDialogue" to="." method="_on_search_dialogue_search_for"]
-[connection signal="pressed" from="SearchDialogue/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/FindButton" to="SearchDialogue" method="_on_find_button_pressed"]
-[connection signal="pressed" from="SearchDialogue/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/CancelButton" to="SearchDialogue" method="_on_cancel_button_pressed"]
