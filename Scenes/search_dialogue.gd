@@ -17,6 +17,9 @@ var search_dict_base: Dictionary = {
 	"direction": Global.Direction.DOWN,
 }
 
+func set_search_term(in_term: String) -> void:
+	searchbar.text = in_term;
+
 func _on_cancel_button_pressed() -> void:
 	close_requested.emit();
 

@@ -1,7 +1,9 @@
-[gd_scene load_steps=38 format=3 uid="uid://c27tndo52hemr"]
+[gd_scene load_steps=39 format=3 uid="uid://c27tndo52hemr"]
 
 [ext_resource type="Script" uid="uid://bm50wegc8u161" path="res://Scenes/main.gd" id="1_idj7w"]
 [ext_resource type="SystemFont" uid="uid://dlt8dbd1yyrd" path="res://Scenes/MenuFont.tres" id="1_r150o"]
+[ext_resource type="Script" uid="uid://bb4wbqnveqg81" path="res://Scenes/menu_bar.gd" id="2_jw32o"]
+[ext_resource type="Theme" uid="uid://bf5m2gy4yeiuw" path="res://menu_theme.tres" id="2_v1gob"]
 [ext_resource type="Script" uid="uid://dxvk0m13fys3q" path="res://Scenes/search_dialogue.gd" id="3_pbw6q"]
 [ext_resource type="LabelSettings" uid="uid://dxgt60k8v3dj2" path="res://menu_label_settings.tres" id="3_rgh2o"]
 [ext_resource type="ButtonGroup" uid="uid://d15fy6ui2y7vb" path="res://search_direction_button_group.tres" id="4_pbw6q"]
@@ -41,13 +43,6 @@ multichannel_signed_distance_field = true
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bmxlf"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4kpch"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_idj7w"]
-bg_color = Color(0.864675, 0.864675, 0.864675, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c1w88"]
 
@@ -173,22 +168,14 @@ theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_50glp")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_vy5pj")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_bmxlf")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_4kpch")
+script = ExtResource("2_jw32o")
 
 [node name="FileMenu" type="PopupMenu" parent="VBoxContainer/Top/MenuBar"]
 title = "File"
 position = Vector2i(16, 19)
-size = Vector2i(100, 132)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_accelerator_color = Color(0, 0, 0, 1)
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_separator_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_colors/font_separator_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("1_r150o")
-theme_override_font_sizes/font_size = 12
-theme_override_styles/panel = SubResource("StyleBoxFlat_idj7w")
-item_count = 7
+size = Vector2i(121, 152)
+theme = ExtResource("2_v1gob")
+item_count = 8
 item_0/text = "New"
 item_0/id = 0
 item_1/text = "New Window"
@@ -199,26 +186,19 @@ item_3/text = "Save"
 item_3/id = 3
 item_4/text = "Save As..."
 item_4/id = 4
-item_5/id = 5
-item_5/separator = true
-item_6/text = "Exit"
-item_6/id = 6
+item_5/text = "Export..."
+item_5/id = 7
+item_6/id = 5
+item_6/separator = true
+item_7/text = "Exit"
+item_7/id = 6
 
 [node name="EditMenu" type="PopupMenu" parent="VBoxContainer/Top/MenuBar"]
 auto_translate_mode = 1
 title = "Edit"
 position = Vector2i(48, 24)
-size = Vector2i(114, 266)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_accelerator_color = Color(0, 0, 0, 1)
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_separator_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_colors/font_separator_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("1_r150o")
-theme_override_font_sizes/font_size = 12
-theme_override_styles/panel = SubResource("StyleBoxFlat_idj7w")
+size = Vector2i(124, 264)
+theme = ExtResource("2_v1gob")
 item_count = 15
 item_0/text = "Undo"
 item_0/id = 0
@@ -251,53 +231,45 @@ item_13/id = 13
 item_14/text = "Time/Date"
 item_14/id = 14
 
-[node name="FormatMenu" type="PopupMenu" parent="VBoxContainer/Top/MenuBar"]
+[node name="SettingsMenu" type="PopupMenu" parent="VBoxContainer/Top/MenuBar"]
 auto_translate_mode = 1
-title = "Format"
+title = "Settings"
 position = Vector2i(48, 24)
-size = Vector2i(114, 266)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_accelerator_color = Color(0, 0, 0, 1)
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_separator_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_colors/font_separator_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("1_r150o")
-theme_override_font_sizes/font_size = 12
-theme_override_styles/panel = SubResource("StyleBoxFlat_idj7w")
+size = Vector2i(123, 100)
+theme = ExtResource("2_v1gob")
+hide_on_item_selection = false
+item_count = 5
+item_0/text = "Zoom"
+item_0/id = 0
+item_1/text = "Appearance..."
+item_1/id = 4
+item_2/id = 3
+item_2/separator = true
+item_3/text = "Status Bar"
+item_3/checkable = 1
+item_3/id = 3
+item_4/text = "Word Counter"
+item_4/checkable = 1
+item_4/checked = true
+item_4/id = 4
 
-[node name="View" type="PopupMenu" parent="VBoxContainer/Top/MenuBar"]
-auto_translate_mode = 1
-title = "View"
-position = Vector2i(48, 24)
-size = Vector2i(114, 266)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_accelerator_color = Color(0, 0, 0, 1)
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_separator_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_colors/font_separator_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("1_r150o")
-theme_override_font_sizes/font_size = 12
-theme_override_styles/panel = SubResource("StyleBoxFlat_idj7w")
+[node name="ZoomMenu" type="PopupMenu" parent="VBoxContainer/Top/MenuBar/SettingsMenu"]
+size = Vector2i(146, 100)
+theme = ExtResource("2_v1gob")
+item_count = 3
+item_0/text = "Zoom In"
+item_0/id = 0
+item_1/text = "Zoom Out"
+item_1/id = 1
+item_2/text = "Restore Default Zoom"
+item_2/id = 2
 
-[node name="View2" type="PopupMenu" parent="VBoxContainer/Top/MenuBar"]
+[node name="HelpMenu" type="PopupMenu" parent="VBoxContainer/Top/MenuBar"]
 auto_translate_mode = 1
 title = "Help"
 position = Vector2i(48, 24)
 size = Vector2i(114, 266)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_accelerator_color = Color(0, 0, 0, 1)
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_separator_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_colors/font_separator_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("1_r150o")
-theme_override_font_sizes/font_size = 12
-theme_override_styles/panel = SubResource("StyleBoxFlat_idj7w")
+theme = ExtResource("2_v1gob")
 
 [node name="Body" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -334,15 +306,33 @@ theme_override_constants/margin_bottom = 2
 layout_mode = 2
 alignment = 2
 
-[node name="VSeparator" type="VSeparator" parent="VBoxContainer/Bottom/MarginContainer/HBoxContainer"]
+[node name="ZoomContainer" type="HBoxContainer" parent="VBoxContainer/Bottom/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/Bottom/MarginContainer/HBoxContainer/ZoomContainer"]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxFlat_rgh2o")
 
-[node name="Label" type="Label" parent="VBoxContainer/Bottom/MarginContainer/HBoxContainer"]
+[node name="ZoomLabel" type="Label" parent="VBoxContainer/Bottom/MarginContainer/HBoxContainer/ZoomContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_styles/normal = SubResource("StyleBoxEmpty_grg3l")
 text = "100%"
+label_settings = SubResource("LabelSettings_1p5hy")
+vertical_alignment = 1
+
+[node name="WordcountContainer" type="HBoxContainer" parent="VBoxContainer/Bottom/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="VSeparator2" type="VSeparator" parent="VBoxContainer/Bottom/MarginContainer/HBoxContainer/WordcountContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxFlat_rgh2o")
+
+[node name="WordcountLabel" type="Label" parent="VBoxContainer/Bottom/MarginContainer/HBoxContainer/WordcountContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_grg3l")
+text = "0 words"
 label_settings = SubResource("LabelSettings_1p5hy")
 vertical_alignment = 1
 
@@ -650,8 +640,15 @@ theme_override_font_sizes/font_size = 12
 theme_override_styles/normal = SubResource("StyleBoxFlat_4kpch")
 text = "Cancel"
 
+[node name="TextDoneChangingTimer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
 [connection signal="id_pressed" from="VBoxContainer/Top/MenuBar/FileMenu" to="." method="_on_file_menu_id_pressed"]
 [connection signal="id_pressed" from="VBoxContainer/Top/MenuBar/EditMenu" to="." method="_on_edit_menu_id_pressed"]
+[connection signal="id_pressed" from="VBoxContainer/Top/MenuBar/SettingsMenu" to="." method="_on_settings_menu_id_pressed"]
+[connection signal="id_pressed" from="VBoxContainer/Top/MenuBar/SettingsMenu/ZoomMenu" to="." method="_on_zoom_menu_id_pressed"]
+[connection signal="caret_changed" from="VBoxContainer/Body/TextEdit" to="." method="_on_text_edit_caret_changed"]
 [connection signal="text_changed" from="VBoxContainer/Body/TextEdit" to="." method="_on_text_edit_text_changed"]
 [connection signal="canceled" from="OpenFileDialog" to="." method="_on_open_file_dialog_canceled"]
 [connection signal="file_selected" from="OpenFileDialog" to="." method="_on_open_file_dialog_file_selected"]
@@ -664,3 +661,4 @@ text = "Cancel"
 [connection signal="search_for" from="SearchDialogue" to="." method="_on_search_dialogue_search_for"]
 [connection signal="pressed" from="SearchDialogue/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/FindButton" to="SearchDialogue" method="_on_find_button_pressed"]
 [connection signal="pressed" from="SearchDialogue/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/CancelButton" to="SearchDialogue" method="_on_cancel_button_pressed"]
+[connection signal="timeout" from="TextDoneChangingTimer" to="." method="_on_text_done_changing_timer_timeout"]

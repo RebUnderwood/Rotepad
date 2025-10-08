@@ -31,4 +31,9 @@ window/handheld/orientation=1
 
 [rendering]
 
+occlusion_culling/bvh_build_quality=0
 renderer/rendering_method="gl_compatibility"
+environment/ssao/quality=0
+environment/ssil/quality=0
+environment/glow/upscale_mode=0
+environment/volumetric_fog/use_filter=0

@@ -3,37 +3,68 @@ extends PanelContainer
 enum UnsavedState {NONE, NEW_FILE, OPENING_FILE, EXITING_PROGRAM}
 @onready var text_edit = $VBoxContainer/Body/TextEdit;
 @onready var menu_bar = $VBoxContainer/Top/MenuBar;
+@onready var bottom_bar = $VBoxContainer/Bottom;
+
+@onready var settings_menu = $VBoxContainer/Top/MenuBar/SettingsMenu;
+
+@onready var zoom_container = $VBoxContainer/Bottom/MarginContainer/HBoxContainer/ZoomContainer;
+@onready var zoom_label = $VBoxContainer/Bottom/MarginContainer/HBoxContainer/ZoomContainer/ZoomLabel;
+
+@onready var wordcount_container = $VBoxContainer/Bottom/MarginContainer/HBoxContainer/WordcountContainer;
+@onready var wordcount_label = $VBoxContainer/Bottom/MarginContainer/HBoxContainer/WordcountContainer/WordcountLabel;
 
 @onready var open_file_dialogue = $OpenFileDialog;
 @onready var write_file_dialogue = $SaveFileDialog;
 @onready var unsaved_dialogue = $UnsavedConfirmDialogue;
 @onready var search_dialogue = $SearchDialogue;
 
+@onready var text_done_changing_timer = $TextDoneChangingTimer;
+
 var accepting_input: bool = true;
 var cur_file_path: String = "";
 var is_saved: bool = true;
 var unsaved_confirm_state: UnsavedState = UnsavedState.NONE;
+var wordcount_regex = RegEx.new();
+
+var previously_selecting: bool = false;
+
 
 func _ready() -> void:
 	refresh_window_title();
 	unsaved_dialogue.close_requested.connect(_on_window_close_requested.bind(unsaved_dialogue));
 	search_dialogue.close_requested.connect(_on_window_close_requested.bind(search_dialogue));
+	wordcount_regex.compile("[\\w-]+");
+	update_wordcount();
+	
 	
 func _process(_delta: float) -> void:
 	if accepting_input:
-		if Input.is_key_pressed(KEY_CTRL):
-			if Input.is_key_pressed(KEY_S):
-				save();
-			elif Input.is_key_pressed(KEY_O):
-				if is_saved:
-					open_file_dialogue.show();
-					accepting_input = false;
-				else:
-					unsaved_confirm_state = UnsavedState.OPENING_FILE;
-					unsaved_dialogue.show();
-			elif Input.is_key_pressed(KEY_F):
-				search_dialogue.show();
+		pass
+				
+func set_zoom(in_zoom: int)	-> void:
+	zoom_label.text = str(in_zoom) + "%";
 	
+func count_words(in_text: String = text_edit.text) -> int:
+	return wordcount_regex.search_all(in_text).size();
+	
+func set_wordcount(in_wordcount: int) ->void:
+	var string_wordcount: String = str(in_wordcount);
+	var result: String = "";
+	var count: int = 0
+	for i in range(string_wordcount.length() - 1, -1, -1):
+		result = string_wordcount[i] + result
+		count += 1
+		if count % 3 == 0 and i != 0:
+			result = "," + result
+	wordcount_label.text = result + " words";
+
+func update_wordcount() -> void:
+	if wordcount_container.visible:
+		if text_edit.has_selection():
+			set_wordcount(count_words(text_edit.get_selected_text()));
+		else:
+			set_wordcount(count_words(text_edit.text));
+
 func refresh_window_title() -> void:
 	var out_title : String = "";
 	var filename = "Untitled";
@@ -56,6 +87,7 @@ func new_file() -> void:
 	if is_saved:
 		cur_file_path = "";
 		text_edit.text = "";
+		update_wordcount();
 	else:
 		unsaved_confirm_state = UnsavedState.NEW_FILE;
 		unsaved_dialogue.show();
@@ -148,6 +180,7 @@ func _on_save_file_dialog_canceled() -> void:
 	
 func _on_open_file_dialog_file_selected(in_path: String) -> void:
 	text_edit.text = load_file(in_path);
+	update_wordcount();
 	accepting_input = true;
 	cur_file_path = in_path;
 	is_saved = true;
@@ -182,15 +215,76 @@ func _on_file_menu_id_pressed(id: int) -> void:
 
 func _on_edit_menu_id_pressed(id: int) -> void:
 	match id:
+		0:
+			text_edit.undo();
+		2:
+			text_edit.cut();
+		3:
+			text_edit.copy();
+		4:
+			text_edit.paste();
+		5:
+			text_edit.delete_selection();
 		7:
+			search_dialogue.set_search_term(text_edit.get_selected_text());
 			search_dialogue.show();
+		8:
+			var search_dict: Dictionary = {
+				"search_term": text_edit.get_selected_text(),
+				"match_case": false,
+				"wrap": false,
+				"direction": Global.Direction.DOWN,
+			}
+			search(search_dict);
+		9:
+			var search_dict: Dictionary = {
+				"search_term": text_edit.get_selected_text(),
+				"match_case": false,
+				"wrap": false,
+				"direction": Global.Direction.UP,
+			}
+			search(search_dict);
+		10:
+			# Find and Replace
+			pass
 			
-	
+		11:
+			# Go to
+			pass
+			
+		12:
+			text_edit.select_all();
+		13:
+			# time and date
+			pass
+
+func _on_settings_menu_id_pressed(id: int) -> void:
+	match id:
+		4:
+			settings_menu.set_item_checked(4, !settings_menu.is_item_checked(4))
+			wordcount_container.visible = settings_menu.is_item_checked(4);
+
+func _on_zoom_menu_id_pressed(id: int) -> void:
+	match id:
+		0:
+			var font_size = text_edit.get_theme_font_size("font_size");
+			text_edit.add_theme_font_size_override("font_size", font_size + 2);
+		1:
+			var font_size = text_edit.get_theme_font_size("font_size");
+			if font_size > 2:
+				text_edit.add_theme_font_size_override("font_size", font_size - 2);
+		2:
+			text_edit.add_theme_font_size_override("font_size", 18);
+		
+	var font_size = text_edit.get_theme_font_size("font_size");
+	set_zoom(round((font_size/18.0) * 100));
 
 func _on_text_edit_text_changed() -> void:
 	is_saved = false;
 	refresh_window_title();
+	text_done_changing_timer.start();
 
+			
 func _on_window_close_requested(window: Node) -> void:
 	window.hide();
 
@@ -210,3 +304,15 @@ func _on_search_dialogue_search_for(search_dict: Dictionary) -> void:
 	var match_found: bool = search(search_dict);
 	if !match_found:
 		print("NO MATCH!");
+
+func _on_text_done_changing_timer_timeout() -> void:
+	update_wordcount();
+	# Put autosave here
+
+func _on_text_edit_caret_changed() -> void:
+	if text_edit.has_selection():
+		update_wordcount();
+		previously_selecting = true;
+	elif previously_selecting:
+		previously_selecting = false;
+		update_wordcount();
