@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://c27tndo52hemr"]
+[gd_scene load_steps=41 format=3 uid="uid://c27tndo52hemr"]
 
 [ext_resource type="Script" uid="uid://bm50wegc8u161" path="res://Scenes/main.gd" id="1_idj7w"]
 [ext_resource type="SystemFont" uid="uid://dlt8dbd1yyrd" path="res://Scenes/MenuFont.tres" id="1_r150o"]
@@ -6,6 +6,7 @@
 [ext_resource type="Theme" uid="uid://bf5m2gy4yeiuw" path="res://menu_theme.tres" id="2_v1gob"]
 [ext_resource type="Script" uid="uid://dxvk0m13fys3q" path="res://Scenes/search_dialogue.gd" id="3_pbw6q"]
 [ext_resource type="LabelSettings" uid="uid://dxgt60k8v3dj2" path="res://menu_label_settings.tres" id="3_rgh2o"]
+[ext_resource type="Theme" uid="uid://c41vn3d68w626" path="res://TextEditTheme.tres" id="4_50glp"]
 [ext_resource type="ButtonGroup" uid="uid://d15fy6ui2y7vb" path="res://search_direction_button_group.tres" id="4_pbw6q"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c1w88"]
@@ -45,6 +46,9 @@ multichannel_signed_distance_field = true
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4kpch"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c1w88"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1p5hy"]
+bg_color = Color(1, 1, 1, 1)
 
 [sub_resource type="SystemFont" id="SystemFont_r150o"]
 font_names = PackedStringArray("Consolas")
@@ -128,6 +132,7 @@ border_width_right = 1
 border_width_bottom = 1
 
 [node name="Main" type="PanelContainer"]
+process_mode = 4
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -143,10 +148,12 @@ layout_mode = 2
 theme_override_constants/separation = 0
 
 [node name="Top" type="PanelContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 22)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_r150o")
 
 [node name="MenuBar" type="MenuBar" parent="VBoxContainer/Top"]
+process_mode = 3
 layout_mode = 2
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
@@ -157,7 +164,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/h_separation = 9
 theme_override_fonts/font = SubResource("SystemFont_c1w88")
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 14
 theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_idj7w")
 theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_kln2b")
 theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_rgh2o")
@@ -173,33 +180,38 @@ script = ExtResource("2_jw32o")
 [node name="FileMenu" type="PopupMenu" parent="VBoxContainer/Top/MenuBar"]
 title = "File"
 position = Vector2i(16, 19)
-size = Vector2i(121, 152)
+size = Vector2i(121, 196)
 theme = ExtResource("2_v1gob")
-item_count = 8
+item_count = 9
 item_0/text = "New"
 item_0/id = 0
 item_1/text = "New Window"
 item_1/id = 1
 item_2/text = "Open..."
 item_2/id = 2
-item_3/text = "Save"
-item_3/id = 3
-item_4/text = "Save As..."
-item_4/id = 4
-item_5/text = "Export..."
-item_5/id = 7
-item_6/id = 5
-item_6/separator = true
-item_7/text = "Exit"
-item_7/id = 6
+item_3/text = "Open Recent"
+item_3/id = 8
+item_3/disabled = true
+item_4/text = "Save"
+item_4/id = 3
+item_5/text = "Save As..."
+item_5/id = 4
+item_6/text = "Export..."
+item_6/id = 7
+item_6/disabled = true
+item_7/id = 5
+item_7/separator = true
+item_8/text = "Exit"
+item_8/id = 6
 
 [node name="EditMenu" type="PopupMenu" parent="VBoxContainer/Top/MenuBar"]
 auto_translate_mode = 1
 title = "Edit"
 position = Vector2i(48, 24)
-size = Vector2i(124, 264)
+size = Vector2i(124, 300)
+visible = true
 theme = ExtResource("2_v1gob")
-item_count = 15
+item_count = 14
 item_0/text = "Undo"
 item_0/id = 0
 item_1/id = 1
@@ -222,39 +234,52 @@ item_9/text = "Find Previous"
 item_9/id = 9
 item_10/text = "Replace..."
 item_10/id = 10
-item_11/text = "Go To..."
-item_11/id = 11
-item_12/id = 12
-item_12/separator = true
-item_13/text = "Select All"
-item_13/id = 13
-item_14/text = "Time/Date"
-item_14/id = 14
+item_10/disabled = true
+item_11/id = 12
+item_11/separator = true
+item_12/text = "Select All"
+item_12/id = 13
+item_13/text = "Time/Date"
+item_13/id = 14
+item_13/disabled = true
 
 [node name="SettingsMenu" type="PopupMenu" parent="VBoxContainer/Top/MenuBar"]
 auto_translate_mode = 1
 title = "Settings"
 position = Vector2i(48, 24)
-size = Vector2i(123, 100)
+size = Vector2i(136, 159)
 theme = ExtResource("2_v1gob")
 hide_on_item_selection = false
-item_count = 5
+item_count = 9
 item_0/text = "Zoom"
 item_0/id = 0
 item_1/text = "Appearance..."
 item_1/id = 4
-item_2/id = 3
+item_1/disabled = true
+item_2/id = 6
 item_2/separator = true
-item_3/text = "Status Bar"
+item_3/text = "Autosave"
 item_3/checkable = 1
+item_3/checked = true
 item_3/id = 3
-item_4/text = "Word Counter"
-item_4/checkable = 1
-item_4/checked = true
-item_4/id = 4
+item_4/id = 3
+item_4/separator = true
+item_5/text = "Status Bar"
+item_5/checkable = 1
+item_5/checked = true
+item_5/id = 5
+item_6/text = "Word Counter"
+item_6/checkable = 1
+item_6/checked = true
+item_6/id = 6
+item_7/id = 7
+item_7/separator = true
+item_8/text = "Fullscreen"
+item_8/checkable = 1
+item_8/id = 8
 
 [node name="ZoomMenu" type="PopupMenu" parent="VBoxContainer/Top/MenuBar/SettingsMenu"]
-size = Vector2i(146, 100)
+size = Vector2i(165, 100)
 theme = ExtResource("2_v1gob")
 item_count = 3
 item_0/text = "Zoom In"
@@ -276,8 +301,22 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxEmpty_c1w88")
 
-[node name="TextEdit" type="TextEdit" parent="VBoxContainer/Body"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Body"]
 layout_mode = 2
+
+[node name="MarginSpacerLeft" type="PanelContainer" parent="VBoxContainer/Body/HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_1p5hy")
+
+[node name="TextEdit" type="TextEdit" parent="VBoxContainer/Body/HBoxContainer"]
+process_mode = 3
+light_mask = 0
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+theme = ExtResource("4_50glp")
 theme_override_colors/background_color = Color(1, 1, 1, 1)
 theme_override_colors/font_placeholder_color = Color(0.716296, 0.716296, 0.716296, 1)
 theme_override_colors/font_readonly_color = Color(0, 0, 0, 1)
@@ -291,7 +330,14 @@ deselect_on_focus_loss_enabled = false
 wrap_mode = 1
 caret_blink = true
 
+[node name="MarginSpacerRight" type="PanelContainer" parent="VBoxContainer/Body/HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_1p5hy")
+
 [node name="Bottom" type="PanelContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_kln2b")
 
@@ -305,6 +351,26 @@ theme_override_constants/margin_bottom = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Bottom/MarginContainer"]
 layout_mode = 2
 alignment = 2
+
+[node name="ConsoleContainer" type="HBoxContainer" parent="VBoxContainer/Bottom/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/Bottom/MarginContainer/HBoxContainer/ConsoleContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxFlat_rgh2o")
+
+[node name="ConsoleLabel" type="RichTextLabel" parent="VBoxContainer/Bottom/MarginContainer/HBoxContainer/ConsoleContainer"]
+layout_mode = 2
+theme = ExtResource("2_v1gob")
+bbcode_enabled = true
+text = "Autosaving..."
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="ConsoleClearTimer" type="Timer" parent="VBoxContainer/Bottom/MarginContainer/HBoxContainer/ConsoleContainer"]
+process_mode = 3
+one_shot = true
 
 [node name="ZoomContainer" type="HBoxContainer" parent="VBoxContainer/Bottom/MarginContainer/HBoxContainer"]
 layout_mode = 2
@@ -351,6 +417,7 @@ access = 2
 use_native_dialog = true
 
 [node name="UnsavedConfirmDialogue" type="Window" parent="."]
+process_mode = 3
 title = "Rotepad"
 initial_position = 4
 size = Vector2i(300, 100)
@@ -448,6 +515,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_4kpch")
 text = "Cancel"
 
 [node name="SearchDialogue" type="Window" parent="."]
+process_mode = 3
 auto_translate_mode = 1
 title = "Search"
 initial_position = 4
@@ -641,6 +709,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_4kpch")
 text = "Cancel"
 
 [node name="TextDoneChangingTimer" type="Timer" parent="."]
+process_mode = 3
 wait_time = 0.4
 one_shot = true
 
@@ -648,8 +717,9 @@ one_shot = true
 [connection signal="id_pressed" from="VBoxContainer/Top/MenuBar/EditMenu" to="." method="_on_edit_menu_id_pressed"]
 [connection signal="id_pressed" from="VBoxContainer/Top/MenuBar/SettingsMenu" to="." method="_on_settings_menu_id_pressed"]
 [connection signal="id_pressed" from="VBoxContainer/Top/MenuBar/SettingsMenu/ZoomMenu" to="." method="_on_zoom_menu_id_pressed"]
-[connection signal="caret_changed" from="VBoxContainer/Body/TextEdit" to="." method="_on_text_edit_caret_changed"]
-[connection signal="text_changed" from="VBoxContainer/Body/TextEdit" to="." method="_on_text_edit_text_changed"]
+[connection signal="caret_changed" from="VBoxContainer/Body/HBoxContainer/TextEdit" to="." method="_on_text_edit_caret_changed"]
+[connection signal="text_changed" from="VBoxContainer/Body/HBoxContainer/TextEdit" to="." method="_on_text_edit_text_changed"]
+[connection signal="timeout" from="VBoxContainer/Bottom/MarginContainer/HBoxContainer/ConsoleContainer/ConsoleClearTimer" to="." method="_on_console_clear_timer_timeout"]
 [connection signal="canceled" from="OpenFileDialog" to="." method="_on_open_file_dialog_canceled"]
 [connection signal="file_selected" from="OpenFileDialog" to="." method="_on_open_file_dialog_file_selected"]
 [connection signal="canceled" from="SaveFileDialog" to="." method="_on_save_file_dialog_canceled"]

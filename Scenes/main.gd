@@ -1,17 +1,26 @@
 extends PanelContainer
 
 enum UnsavedState {NONE, NEW_FILE, OPENING_FILE, EXITING_PROGRAM}
-@onready var text_edit = $VBoxContainer/Body/TextEdit;
+enum MessageType {STANDARD, ERROR, ALERT}
+
+const DEFAULT_FONT_SIZE: int = 18;
+
+@onready var text_edit = $VBoxContainer/Body/HBoxContainer/TextEdit;
 @onready var menu_bar = $VBoxContainer/Top/MenuBar;
 @onready var bottom_bar = $VBoxContainer/Bottom;
+
+@onready var margin_spacer_left = $VBoxContainer/Body/HBoxContainer/MarginSpacerLeft;
+@onready var margin_spacer_right = $VBoxContainer/Body/HBoxContainer/MarginSpacerRight;
 
 @onready var settings_menu = $VBoxContainer/Top/MenuBar/SettingsMenu;
 
 @onready var zoom_container = $VBoxContainer/Bottom/MarginContainer/HBoxContainer/ZoomContainer;
 @onready var zoom_label = $VBoxContainer/Bottom/MarginContainer/HBoxContainer/ZoomContainer/ZoomLabel;
-
 @onready var wordcount_container = $VBoxContainer/Bottom/MarginContainer/HBoxContainer/WordcountContainer;
 @onready var wordcount_label = $VBoxContainer/Bottom/MarginContainer/HBoxContainer/WordcountContainer/WordcountLabel;
+@onready var console_container = $VBoxContainer/Bottom/MarginContainer/HBoxContainer/ConsoleContainer;
+@onready var console_label = $VBoxContainer/Bottom/MarginContainer/HBoxContainer/ConsoleContainer/ConsoleLabel;
+@onready var console_clear_timer = $VBoxContainer/Bottom/MarginContainer/HBoxContainer/ConsoleContainer/ConsoleClearTimer;
 
 @onready var open_file_dialogue = $OpenFileDialog;
 @onready var write_file_dialogue = $SaveFileDialog;
@@ -25,22 +34,96 @@ var cur_file_path: String = "";
 var is_saved: bool = true;
 var unsaved_confirm_state: UnsavedState = UnsavedState.NONE;
 var wordcount_regex = RegEx.new();
-
 var previously_selecting: bool = false;
+var file_locked: bool = false;
+var autosave_fails: int = 0;
+var config_path: String = "user://settings.cfg";
+var config: ConfigFile = ConfigFile.new();
+
+# Settings
+var fullscreen: bool = false;
+var show_status_bar: bool = true;
+var show_word_counter: bool = true;
+var font_size: int = DEFAULT_FONT_SIZE;
+var autosave_enabled: bool = true;
 
 
 func _ready() -> void:
+	get_tree().set_auto_accept_quit(false);
+	console_container.modulate.a = 0.0;
 	refresh_window_title();
 	unsaved_dialogue.close_requested.connect(_on_window_close_requested.bind(unsaved_dialogue));
 	search_dialogue.close_requested.connect(_on_window_close_requested.bind(search_dialogue));
 	wordcount_regex.compile("[\\w-]+");
+	load_config();
 	update_wordcount();
-	
 	
 func _process(_delta: float) -> void:
 	if accepting_input:
 		pass
-				
+		
+func _notification(what):
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		save_config();
+		if is_saved:
+			get_tree().quit();
+		else:
+			unsaved_confirm_state = UnsavedState.EXITING_PROGRAM;
+			unsaved_dialogue.show();
+
+func load_config() -> void:
+	var err = config.load(config_path);
+	if err != OK:
+		return;
+	if config.has_section("app_settings"):
+		set_fullscreen(config.get_value("app_settings", "fullscreen", fullscreen));
+		set_show_status_bar(config.get_value("app_settings", "show_status_bar", show_status_bar));
+		set_show_word_counter(config.get_value("app_settings", "show_word_counter", show_word_counter));
+		set_font_size(config.get_value("app_settings", "font_size", font_size));
+		set_autosave_enabled(config.get_value("app_settings", "autosave_enabled", autosave_enabled));
+
+func save_config() -> void:
+	config.set_value("app_settings", "fullscreen", fullscreen);
+	config.set_value("app_settings", "show_status_bar", show_status_bar);
+	config.set_value("app_settings", "show_word_counter", show_word_counter);
+	config.set_value("app_settings", "font_size", font_size);
+	config.set_value("app_settings", "autosave_enabled", autosave_enabled);
+	config.save(config_path);
+	
+func set_fullscreen(in_fullscreen: bool) -> void:
+	fullscreen = in_fullscreen;
+	margin_spacer_left.visible = fullscreen;
+	margin_spacer_right.visible = fullscreen;
+	if fullscreen:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN);
+	else:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED);
+	settings_menu.set_item_checked(8, fullscreen);
+
+func set_show_status_bar(in_visible: bool) -> void:
+	show_status_bar = in_visible;
+	settings_menu.set_item_checked(5, show_status_bar);
+	bottom_bar.visible = show_status_bar;
+	
+func set_show_word_counter(in_visible: bool) -> void:
+	show_word_counter = in_visible;
+	settings_menu.set_item_checked(6, show_word_counter)
+	wordcount_container.visible = show_word_counter;
+	if show_word_counter:
+		update_wordcount();
+		set_show_status_bar(true);
+		
+func set_font_size(in_size: int) -> void:
+	if in_size <= 0:
+		return;
+	font_size = in_size;
+	text_edit.add_theme_font_size_override("font_size", font_size);
+	set_zoom(round((font_size/DEFAULT_FONT_SIZE) * 100));
+	
+func set_autosave_enabled(in_enabled: bool) -> void:
+	autosave_enabled = in_enabled;
+	settings_menu.set_item_checked(3, autosave_enabled);
+	
 func set_zoom(in_zoom: int)	-> void:
 	zoom_label.text = str(in_zoom) + "%";
 	
@@ -97,12 +180,54 @@ func save(save_as: bool = false) -> void:
 		write_file_dialogue.show();
 		accepting_input = false;
 	else:
+		file_locked = true;
 		write_file(text_edit.text, cur_file_path);
+		file_locked = false;
 		is_saved = true;
 		accepting_input = true;
 		refresh_window_title();
 		unsaved_followup();
 		
+func autosave(timestamp: float) -> void:
+	if cur_file_path != "":
+		if file_locked:
+			if autosave_fails > 5:
+				write_to_console("Autosave repeatedly failed!", MessageType.ERROR);
+			autosave_fails += 1;
+			get_tree().create_timer(.5).timeout.connect(autosave.bind(timestamp));
+		else:
+			autosave_fails = 0;
+			file_locked = true;
+			var last_modified: int = FileAccess.get_modified_time(cur_file_path);
+			if float(last_modified) < timestamp:
+				write_to_console("Autosaving...", MessageType.STANDARD);
+				write_file(text_edit.text, cur_file_path);
+				is_saved = true;
+				accepting_input = true;
+				refresh_window_title();
+				write_to_console("Autosaved!", MessageType.STANDARD);
+				console_clear_timer.start();
+			file_locked = false;
+			
+			
+func write_to_console(message: String, message_type: MessageType) -> void:
+	console_clear_timer.stop();
+	var output: String = "";
+	match message_type:
+		MessageType.STANDARD:
+			output = message;
+		MessageType.ERROR:
+			output = "[color=red]%s[/color]" % message;
+		MessageType.ALERT:
+			output = "[pulse freq=1.0 color=#ffffff40 ease=-2.0][color=yellow]%s[/color][/pulse]" % message;
+	console_label.text = output;
+	console_container.modulate.a = 1.0;
+	
+func clear_console() -> void:
+	var tween = get_tree().create_tween();
+	tween.tween_property(console_container, "modulate:a", 0.0, .5);
+	
+
 func unsaved_followup() -> void:
 	match unsaved_confirm_state:
 		UnsavedState.NEW_FILE:
@@ -207,11 +332,8 @@ func _on_file_menu_id_pressed(id: int) -> void:
 		4: # Save As...
 			save(true);
 		6:
-			if is_saved:
-				get_tree().quit();
-			else:
-				unsaved_confirm_state = UnsavedState.EXITING_PROGRAM;
-				unsaved_dialogue.show();
+			get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST);
+
 
 func _on_edit_menu_id_pressed(id: int) -> void:
 	match id:
@@ -252,32 +374,32 @@ func _on_edit_menu_id_pressed(id: int) -> void:
 			# Go to
 			pass
 			
-		12:
-			text_edit.select_all();
 		13:
+			text_edit.select_all();
+		14:
 			# time and date
 			pass
 
 func _on_settings_menu_id_pressed(id: int) -> void:
 	match id:
-		4:
-			settings_menu.set_item_checked(4, !settings_menu.is_item_checked(4))
-			wordcount_container.visible = settings_menu.is_item_checked(4);
+		3:
+			set_autosave_enabled(!settings_menu.is_item_checked(3))
+		5:
+			set_show_status_bar(!settings_menu.is_item_checked(5));
+		6:
+			set_show_word_counter(!settings_menu.is_item_checked(6));
+		8:
+			set_fullscreen(!settings_menu.is_item_checked(8));
+				
 
 func _on_zoom_menu_id_pressed(id: int) -> void:
 	match id:
 		0:
-			var font_size = text_edit.get_theme_font_size("font_size");
-			text_edit.add_theme_font_size_override("font_size", font_size + 2);
+			set_font_size(font_size + 2);	
 		1:
-			var font_size = text_edit.get_theme_font_size("font_size");
-			if font_size > 2:
-				text_edit.add_theme_font_size_override("font_size", font_size - 2);
+			set_font_size(font_size - 2);
 		2:
-			text_edit.add_theme_font_size_override("font_size", 18);
-		
-	var font_size = text_edit.get_theme_font_size("font_size");
-	set_zoom(round((font_size/18.0) * 100));
+			set_font_size(DEFAULT_FONT_SIZE);
 
 func _on_text_edit_text_changed() -> void:
 	is_saved = false;
@@ -307,6 +429,8 @@ func _on_search_dialogue_search_for(search_dict: Dictionary) -> void:
 
 func _on_text_done_changing_timer_timeout() -> void:
 	update_wordcount();
+	if autosave_enabled:
+		autosave(Time.get_unix_time_from_system());
 	# Put autosave here
 
 func _on_text_edit_caret_changed() -> void:
@@ -316,3 +440,6 @@ func _on_text_edit_caret_changed() -> void:
 	elif previously_selecting:
 		previously_selecting = false;
 		update_wordcount();
+		
+func _on_console_clear_timer_timeout() -> void:
+	clear_console();

@@ -12,6 +12,8 @@ config_version=5
 
 config/name="RotePad"
 run/main_scene="uid://c27tndo52hemr"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="rotepad"
 config/features=PackedStringArray("4.4", "Forward Plus")
 run/low_processor_mode=true
 config/icon="res://icon.svg"

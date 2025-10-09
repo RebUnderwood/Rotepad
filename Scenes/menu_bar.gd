@@ -10,6 +10,7 @@ const FILE_MENU_SHORTCUTS = [
 	[[KEY_CTRL, KEY_N]],
 	[[KEY_CTRL, KEY_SHIFT, KEY_N]],
 	[[KEY_CTRL, KEY_O]],
+	[[null]],
 	[[KEY_CTRL, KEY_S]],
 	[[KEY_CTRL, KEY_SHIFT, KEY_S]],
 	[[KEY_CTRL, KEY_E]],
@@ -29,10 +30,21 @@ const EDIT_MENU_SHORTCUTS = [
 	[[KEY_F3]],
 	[[KEY_SHIFT, KEY_F3]],
 	[[KEY_CTRL, KEY_H]],
-	[[KEY_CTRL, KEY_G]],
 	[[null]],
 	[[KEY_CTRL, KEY_A]],
 	[[KEY_F5]],
+]
+
+const SETTINGS_MENU_SHORTCUTS = [
+	[[null]],
+	[[null]],
+	[[null]],
+	[[null]],
+	[[null]],
+	[[null]],
+	[[null]],
+	[[null]],
+	[[KEY_F11]],
 ]
 
 const ZOOM_MENU_SHORTCUTS = [
@@ -66,6 +78,7 @@ func apply_shortcuts(menu: PopupMenu, shortcut_array: Array) -> void:
 func _ready() -> void:
 	apply_shortcuts(file_menu, FILE_MENU_SHORTCUTS);
 	apply_shortcuts(edit_menu, EDIT_MENU_SHORTCUTS);
+	apply_shortcuts(settings_menu, SETTINGS_MENU_SHORTCUTS);
 	apply_shortcuts(zoom_menu, ZOOM_MENU_SHORTCUTS);
 	settings_menu.set_item_submenu_node(0, zoom_menu);
 	
