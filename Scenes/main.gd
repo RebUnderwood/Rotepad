@@ -5,6 +5,8 @@ enum MessageType {STANDARD, ERROR, ALERT}
 
 const DEFAULT_FONT_SIZE: int = 18;
 
+const PAGE_SIZE: int = 1000;
+
 @onready var text_edit = $VBoxContainer/Body/HBoxContainer/TextEdit;
 @onready var menu_bar = $VBoxContainer/Top/MenuBar;
 @onready var bottom_bar = $VBoxContainer/Bottom;
@@ -29,6 +31,7 @@ const DEFAULT_FONT_SIZE: int = 18;
 
 @onready var text_done_changing_timer = $TextDoneChangingTimer;
 
+var file_contents: PackedByteArray = [];
 var accepting_input: bool = true;
 var cur_file_path: String = "";
 var is_saved: bool = true;
@@ -47,6 +50,10 @@ var show_word_counter: bool = true;
 var font_size: int = DEFAULT_FONT_SIZE;
 var autosave_enabled: bool = true;
 
+var page_start: int = 0;
+var page_end: int = page_start + PAGE_SIZE;
+
+
 
 func _ready() -> void:
 	get_tree().set_auto_accept_quit(false);
@@ -57,10 +64,6 @@ func _ready() -> void:
 	wordcount_regex.compile("[\\w-]+");
 	load_config();
 	update_wordcount();
-	
-func _process(_delta: float) -> void:
-	if accepting_input:
-		pass
 		
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
@@ -163,8 +166,9 @@ func write_file(content: String, in_path: String) -> bool:
 	
 func load_file(in_path: String) -> String:
 	var file = FileAccess.open(in_path, FileAccess.READ);
-	var content = file.get_as_text();
-	return content;
+	var content = FileAccess.get_file_as_bytes(in_path);
+	file_contents = content;
+	return "";
 	
 func new_file() -> void:
 	if is_saved:
@@ -304,7 +308,8 @@ func _on_save_file_dialog_canceled() -> void:
 	accepting_input = true;
 	
 func _on_open_file_dialog_file_selected(in_path: String) -> void:
-	text_edit.text = load_file(in_path);
+	load_file(in_path);
+	text_edit.byte_array = file_contents;
 	update_wordcount();
 	accepting_input = true;
 	cur_file_path = in_path;

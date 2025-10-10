@@ -1,0 +1,67 @@
+[gd_scene load_steps=5 format=3 uid="uid://bppdbs2c58tv3"]
+
+[ext_resource type="Theme" uid="uid://c41vn3d68w626" path="res://TextEditTheme.tres" id="1_gem3i"]
+[ext_resource type="Script" uid="uid://couhj7x3o2ytw" path="res://text_edit.gd" id="1_re22l"]
+
+[sub_resource type="SystemFont" id="SystemFont_r150o"]
+font_names = PackedStringArray("Consolas")
+generate_mipmaps = true
+subpixel_positioning = 0
+multichannel_signed_distance_field = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pbw6q"]
+content_margin_left = 3.0
+content_margin_top = 8.0
+content_margin_right = 3.0
+content_margin_bottom = 3.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="ByteTextEdit" type="PanelContainer"]
+process_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_re22l")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextEdit" type="TextEdit" parent="HBoxContainer"]
+process_mode = 3
+light_mask = 0
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+mouse_filter = 1
+theme = ExtResource("1_gem3i")
+theme_override_colors/caret_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_readonly_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0.716296, 0.716296, 0.716296, 1)
+theme_override_colors/background_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_r150o")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_pbw6q")
+placeholder_text = "Hello World!"
+deselect_on_focus_loss_enabled = false
+wrap_mode = 1
+caret_blink = true
+draw_control_chars = true
+draw_tabs = true
+draw_spaces = true
+
+[node name="VScrollBar" type="VScrollBar" parent="HBoxContainer"]
+process_mode = 3
+layout_mode = 2
+step = 0.1
+page = 0.1
+custom_step = 0.1
+
+[connection signal="resized" from="HBoxContainer/TextEdit" to="." method="_on_text_edit_resized"]
+[connection signal="text_changed" from="HBoxContainer/TextEdit" to="." method="_on_text_edit_text_changed"]
+[connection signal="value_changed" from="HBoxContainer/VScrollBar" to="." method="_on_v_scroll_bar_value_changed"]

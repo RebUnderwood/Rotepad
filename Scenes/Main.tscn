@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://c27tndo52hemr"]
+[gd_scene load_steps=39 format=3 uid="uid://c27tndo52hemr"]
 
 [ext_resource type="Script" uid="uid://bm50wegc8u161" path="res://Scenes/main.gd" id="1_idj7w"]
 [ext_resource type="SystemFont" uid="uid://dlt8dbd1yyrd" path="res://Scenes/MenuFont.tres" id="1_r150o"]
@@ -6,7 +6,7 @@
 [ext_resource type="Theme" uid="uid://bf5m2gy4yeiuw" path="res://menu_theme.tres" id="2_v1gob"]
 [ext_resource type="Script" uid="uid://dxvk0m13fys3q" path="res://Scenes/search_dialogue.gd" id="3_pbw6q"]
 [ext_resource type="LabelSettings" uid="uid://dxgt60k8v3dj2" path="res://menu_label_settings.tres" id="3_rgh2o"]
-[ext_resource type="Theme" uid="uid://c41vn3d68w626" path="res://TextEditTheme.tres" id="4_50glp"]
+[ext_resource type="PackedScene" uid="uid://bppdbs2c58tv3" path="res://text_edit.tscn" id="4_50glp"]
 [ext_resource type="ButtonGroup" uid="uid://d15fy6ui2y7vb" path="res://search_direction_button_group.tres" id="4_pbw6q"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c1w88"]
@@ -25,42 +25,30 @@ font_names = PackedStringArray("Arial")
 generate_mipmaps = true
 multichannel_signed_distance_field = true
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_idj7w"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kln2b"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rgh2o"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pbw6q"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v1gob"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jw32o"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_50glp"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vy5pj"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4kpch"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bmxlf"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4kpch"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vy5pj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_50glp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jw32o"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v1gob"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pbw6q"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rgh2o"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kln2b"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_idj7w"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c1w88"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1p5hy"]
 bg_color = Color(1, 1, 1, 1)
-
-[sub_resource type="SystemFont" id="SystemFont_r150o"]
-font_names = PackedStringArray("Consolas")
-generate_mipmaps = true
-multichannel_signed_distance_field = true
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pbw6q"]
-content_margin_left = 3.0
-content_margin_top = 8.0
-content_margin_right = 3.0
-content_margin_bottom = 3.0
-bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kln2b"]
 bg_color = Color(0.862745, 0.862745, 0.862745, 1)
@@ -132,7 +120,7 @@ border_width_right = 1
 border_width_bottom = 1
 
 [node name="Main" type="PanelContainer"]
-process_mode = 4
+process_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -155,26 +143,26 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_r150o")
 [node name="MenuBar" type="MenuBar" parent="VBoxContainer/Top"]
 process_mode = 3
 layout_mode = 2
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_constants/h_separation = 9
 theme_override_fonts/font = SubResource("SystemFont_c1w88")
 theme_override_font_sizes/font_size = 14
-theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_idj7w")
-theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_kln2b")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_rgh2o")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_pbw6q")
-theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_v1gob")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_jw32o")
-theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_50glp")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_vy5pj")
-theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_bmxlf")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_4kpch")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_bmxlf")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_vy5pj")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_50glp")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_jw32o")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_v1gob")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_pbw6q")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_rgh2o")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_kln2b")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_idj7w")
 script = ExtResource("2_jw32o")
 
 [node name="FileMenu" type="PopupMenu" parent="VBoxContainer/Top/MenuBar"]
@@ -207,9 +195,8 @@ item_8/id = 6
 [node name="EditMenu" type="PopupMenu" parent="VBoxContainer/Top/MenuBar"]
 auto_translate_mode = 1
 title = "Edit"
-position = Vector2i(48, 24)
+position = Vector2i(48, 0)
 size = Vector2i(124, 300)
-visible = true
 theme = ExtResource("2_v1gob")
 item_count = 14
 item_0/text = "Undo"
@@ -310,25 +297,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_1p5hy")
 
-[node name="TextEdit" type="TextEdit" parent="VBoxContainer/Body/HBoxContainer"]
-process_mode = 3
-light_mask = 0
+[node name="TextEdit" parent="VBoxContainer/Body/HBoxContainer" instance=ExtResource("4_50glp")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 3.0
-theme = ExtResource("4_50glp")
-theme_override_colors/background_color = Color(1, 1, 1, 1)
-theme_override_colors/font_placeholder_color = Color(0.716296, 0.716296, 0.716296, 1)
-theme_override_colors/font_readonly_color = Color(0, 0, 0, 1)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/caret_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = SubResource("SystemFont_r150o")
-theme_override_font_sizes/font_size = 18
-theme_override_styles/normal = SubResource("StyleBoxFlat_pbw6q")
-placeholder_text = "Hello World!"
-deselect_on_focus_loss_enabled = false
-wrap_mode = 1
-caret_blink = true
 
 [node name="MarginSpacerRight" type="PanelContainer" parent="VBoxContainer/Body/HBoxContainer"]
 visible = false
@@ -474,13 +444,13 @@ alignment = 2
 
 [node name="SaveButton" type="Button" parent="UnsavedConfirmDialogue/PanelContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_r150o")
 theme_override_font_sizes/font_size = 12
 theme_override_styles/normal = SubResource("StyleBoxFlat_4kpch")
@@ -488,13 +458,13 @@ text = "Save"
 
 [node name="DontSaveButton" type="Button" parent="UnsavedConfirmDialogue/PanelContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_r150o")
 theme_override_font_sizes/font_size = 12
 theme_override_styles/normal = SubResource("StyleBoxFlat_4kpch")
@@ -502,13 +472,13 @@ text = "Don't Save"
 
 [node name="CancelButton" type="Button" parent="UnsavedConfirmDialogue/PanelContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_r150o")
 theme_override_font_sizes/font_size = 12
 theme_override_styles/normal = SubResource("StyleBoxFlat_4kpch")
@@ -565,15 +535,15 @@ label_settings = SubResource("LabelSettings_bmxlf")
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/clear_button_color_pressed = Color(0, 0, 0, 1)
-theme_override_colors/clear_button_color = Color(0, 0, 0, 1)
-theme_override_colors/selection_color = Color(0, 0, 0, 1)
-theme_override_colors/caret_color = Color(0, 0, 0, 1)
-theme_override_colors/font_placeholder_color = Color(0.54099, 0.54099, 0.54099, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
-theme_override_colors/font_uneditable_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_uneditable_color = Color(0, 0, 0, 1)
+theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0.54099, 0.54099, 0.54099, 1)
+theme_override_colors/caret_color = Color(0, 0, 0, 1)
+theme_override_colors/selection_color = Color(0, 0, 0, 1)
+theme_override_colors/clear_button_color = Color(0, 0, 0, 1)
+theme_override_colors/clear_button_color_pressed = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_r150o")
 theme_override_font_sizes/font_size = 12
 theme_override_styles/normal = SubResource("StyleBoxFlat_grg3l")
@@ -642,17 +612,17 @@ alignment = 1
 
 [node name="UpDirectionRadioButton" type="CheckBox" parent="SearchDialogue/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_r150o")
 theme_override_font_sizes/font_size = 12
 button_pressed = true
@@ -661,17 +631,17 @@ text = "Up"
 
 [node name="DownDirectionRadioButton" type="CheckBox" parent="SearchDialogue/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_r150o")
 theme_override_font_sizes/font_size = 12
 button_group = ExtResource("4_pbw6q")
@@ -682,13 +652,13 @@ layout_mode = 2
 
 [node name="FindButton" type="Button" parent="SearchDialogue/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_r150o")
 theme_override_font_sizes/font_size = 12
 theme_override_styles/normal = SubResource("StyleBoxFlat_4kpch")
@@ -696,13 +666,13 @@ text = "Find Next"
 
 [node name="CancelButton" type="Button" parent="SearchDialogue/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_r150o")
 theme_override_font_sizes/font_size = 12
 theme_override_styles/normal = SubResource("StyleBoxFlat_4kpch")
@@ -717,8 +687,6 @@ one_shot = true
 [connection signal="id_pressed" from="VBoxContainer/Top/MenuBar/EditMenu" to="." method="_on_edit_menu_id_pressed"]
 [connection signal="id_pressed" from="VBoxContainer/Top/MenuBar/SettingsMenu" to="." method="_on_settings_menu_id_pressed"]
 [connection signal="id_pressed" from="VBoxContainer/Top/MenuBar/SettingsMenu/ZoomMenu" to="." method="_on_zoom_menu_id_pressed"]
-[connection signal="caret_changed" from="VBoxContainer/Body/HBoxContainer/TextEdit" to="." method="_on_text_edit_caret_changed"]
-[connection signal="text_changed" from="VBoxContainer/Body/HBoxContainer/TextEdit" to="." method="_on_text_edit_text_changed"]
 [connection signal="timeout" from="VBoxContainer/Bottom/MarginContainer/HBoxContainer/ConsoleContainer/ConsoleClearTimer" to="." method="_on_console_clear_timer_timeout"]
 [connection signal="canceled" from="OpenFileDialog" to="." method="_on_open_file_dialog_canceled"]
 [connection signal="file_selected" from="OpenFileDialog" to="." method="_on_open_file_dialog_file_selected"]
