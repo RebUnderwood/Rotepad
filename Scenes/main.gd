@@ -1,6 +1,6 @@
 extends PanelContainer
 
-enum UnsavedState {NONE, NEW_FILE, OPENING_FILE, EXITING_PROGRAM}
+enum UnsavedState {NONE, NEW_FILE, OPENING_FILE, OPENING_SPECIFIC_FILE, EXITING_PROGRAM}
 enum MessageType {STANDARD, ERROR, ALERT}
 
 const DEFAULT_FONT_SIZE: int = 18;
@@ -39,6 +39,8 @@ var file_locked: bool = false;
 var autosave_fails: int = 0;
 var config_path: String = "user://settings.cfg";
 var config: ConfigFile = ConfigFile.new();
+var recent_files: Array[String] = [];
+var file_to_open: String = "";
 
 # Settings
 var fullscreen: bool = false;
@@ -81,6 +83,8 @@ func load_config() -> void:
 		set_show_word_counter(config.get_value("app_settings", "show_word_counter", show_word_counter));
 		set_font_size(config.get_value("app_settings", "font_size", font_size));
 		set_autosave_enabled(config.get_value("app_settings", "autosave_enabled", autosave_enabled));
+	if config.has_section("app_data"):
+		set_recent_files(config.get_value("app_data", "recent_files", recent_files));
 
 func save_config() -> void:
 	config.set_value("app_settings", "fullscreen", fullscreen);
@@ -88,6 +92,7 @@ func save_config() -> void:
 	config.set_value("app_settings", "show_word_counter", show_word_counter);
 	config.set_value("app_settings", "font_size", font_size);
 	config.set_value("app_settings", "autosave_enabled", autosave_enabled);
+	config.set_value("app_data", "recent_files", recent_files);
 	config.save(config_path);
 	
 func set_fullscreen(in_fullscreen: bool) -> void:
@@ -127,6 +132,10 @@ func set_autosave_enabled(in_enabled: bool) -> void:
 func set_zoom(in_zoom: int)	-> void:
 	zoom_label.text = str(in_zoom) + "%";
 	
+func set_recent_files(in_files: Array[String]) -> void:
+	recent_files = in_files;
+	menu_bar.set_recent_files_list(recent_files);
+	
 func count_words(in_text: String = text_edit.text) -> int:
 	return wordcount_regex.search_all(in_text).size();
 	
@@ -149,7 +158,6 @@ func update_wordcount() -> void:
 			set_wordcount(count_words(text_edit.text));
 
 func refresh_window_title() -> void:
-	var out_title : String = "";
 	var filename = "Untitled";
 	if cur_file_path != "":
 		filename = cur_file_path.get_file();
@@ -165,6 +173,23 @@ func load_file(in_path: String) -> String:
 	var file = FileAccess.open(in_path, FileAccess.READ);
 	var content = file.get_as_text();
 	return content;
+	
+func open_file(in_path: String) -> void:
+	text_edit.text = load_file(in_path);
+	update_wordcount();
+	accepting_input = true;
+	cur_file_path = in_path;
+	is_saved = true;
+	refresh_window_title();
+	add_recent_file(in_path);
+	
+func add_recent_file(in_path: String) -> void:
+	recent_files.erase(in_path);
+	recent_files.push_front(in_path);
+	if recent_files.size() > 15:
+		recent_files.pop_back();
+	menu_bar.set_recent_files_list(recent_files);
+	save_config();
 	
 func new_file() -> void:
 	if is_saved:
@@ -237,6 +262,8 @@ func unsaved_followup() -> void:
 			await get_tree().create_timer(.5).timeout;
 			open_file_dialogue.show();
 			accepting_input = false;
+		UnsavedState.OPENING_SPECIFIC_FILE:
+			open_file(file_to_open);
 		UnsavedState.EXITING_PROGRAM:
 			get_tree().quit();
 		_:
@@ -304,12 +331,7 @@ func _on_save_file_dialog_canceled() -> void:
 	accepting_input = true;
 	
 func _on_open_file_dialog_file_selected(in_path: String) -> void:
-	text_edit.text = load_file(in_path);
-	update_wordcount();
-	accepting_input = true;
-	cur_file_path = in_path;
-	is_saved = true;
-	refresh_window_title();
+	open_file(in_path);
 
 func _on_open_file_dialog_canceled() -> void:
 	accepting_input = true;
@@ -334,6 +356,13 @@ func _on_file_menu_id_pressed(id: int) -> void:
 		6:
 			get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST);
 
+func _on_recent_menu_index_pressed(index: int) -> void:
+	if is_saved:
+		open_file(recent_files[index]);
+	else:
+		file_to_open = recent_files[index];
+		unsaved_confirm_state = UnsavedState.OPENING_SPECIFIC_FILE;
+		unsaved_dialogue.show();
 
 func _on_edit_menu_id_pressed(id: int) -> void:
 	match id:

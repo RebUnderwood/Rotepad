@@ -178,7 +178,6 @@ theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_idj7w"
 script = ExtResource("2_jw32o")
 
 [node name="FileMenu" type="PopupMenu" parent="VBoxContainer/Top/MenuBar"]
-oversampling_override = 1.0
 title = "File"
 position = Vector2i(16, 19)
 size = Vector2i(121, 196)
@@ -204,8 +203,6 @@ item_7/id = 5
 item_7/separator = true
 item_8/text = "Exit"
 item_8/id = 6
-
-[node name="RecentMenu" type="PopupMenu" parent="VBoxContainer/Top/MenuBar/FileMenu"]
 
 [node name="EditMenu" type="PopupMenu" parent="VBoxContainer/Top/MenuBar"]
 auto_translate_mode = 1
@@ -329,6 +326,7 @@ theme_override_fonts/font = SubResource("SystemFont_r150o")
 theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBoxFlat_pbw6q")
 placeholder_text = "Hello World!"
+shortcut_keys_enabled = false
 deselect_on_focus_loss_enabled = false
 wrap_mode = 1
 caret_blink = true
@@ -717,7 +715,6 @@ wait_time = 0.4
 one_shot = true
 
 [connection signal="id_pressed" from="VBoxContainer/Top/MenuBar/FileMenu" to="." method="_on_file_menu_id_pressed"]
-[connection signal="index_pressed" from="VBoxContainer/Top/MenuBar/FileMenu/RecentMenu" to="." method="_on_recent_menu_index_pressed"]
 [connection signal="id_pressed" from="VBoxContainer/Top/MenuBar/EditMenu" to="." method="_on_edit_menu_id_pressed"]
 [connection signal="id_pressed" from="VBoxContainer/Top/MenuBar/SettingsMenu" to="." method="_on_settings_menu_id_pressed"]
 [connection signal="id_pressed" from="VBoxContainer/Top/MenuBar/SettingsMenu/ZoomMenu" to="." method="_on_zoom_menu_id_pressed"]

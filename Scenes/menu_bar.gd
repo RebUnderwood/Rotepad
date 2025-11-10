@@ -1,6 +1,7 @@
 extends MenuBar
 
 @onready var file_menu = $FileMenu;
+@onready var recent_menu = $FileMenu/RecentMenu;
 @onready var edit_menu = $EditMenu;
 @onready var settings_menu = $SettingsMenu;
 @onready var zoom_menu = $SettingsMenu/ZoomMenu;
@@ -74,11 +75,26 @@ func apply_shortcuts(menu: PopupMenu, shortcut_array: Array) -> void:
 			input_event.shift_pressed = shift_pressed;
 			sc.events.push_back(input_event);
 		menu.set_item_shortcut(i, sc);
-
+		
+func set_recent_files_list(recent_list: Array[String]) -> void:
+	recent_menu.clear();
+	if recent_list.size() > 0:
+		file_menu.set_item_disabled(3, false);
+		for file in recent_list:
+			recent_menu.add_item(file.get_file());
+	else: file_menu.set_item_disabled(3, true);
+	
 func _ready() -> void:
 	apply_shortcuts(file_menu, FILE_MENU_SHORTCUTS);
 	apply_shortcuts(edit_menu, EDIT_MENU_SHORTCUTS);
 	apply_shortcuts(settings_menu, SETTINGS_MENU_SHORTCUTS);
 	apply_shortcuts(zoom_menu, ZOOM_MENU_SHORTCUTS);
 	settings_menu.set_item_submenu_node(0, zoom_menu);
+	file_menu.set_item_submenu_node(3, recent_menu);
+	file_menu.hide();
+	recent_menu.hide();
+	edit_menu.hide();
+	settings_menu.hide();
+	zoom_menu.hide();
+	help_menu.hide();
 	
