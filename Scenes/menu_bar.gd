@@ -11,6 +11,7 @@ const FILE_MENU_SHORTCUTS = [
 	[[KEY_CTRL, KEY_N]],
 	[[KEY_CTRL, KEY_SHIFT, KEY_N]],
 	[[KEY_CTRL, KEY_O]],
+	[[KEY_CTRL, KEY_SHIFT, KEY_O]],
 	[[null]],
 	[[KEY_CTRL, KEY_S]],
 	[[KEY_CTRL, KEY_SHIFT, KEY_S]],
@@ -79,10 +80,10 @@ func apply_shortcuts(menu: PopupMenu, shortcut_array: Array) -> void:
 func set_recent_files_list(recent_list: Array[String]) -> void:
 	recent_menu.clear();
 	if recent_list.size() > 0:
-		file_menu.set_item_disabled(3, false);
+		file_menu.set_item_disabled(4, false);
 		for file in recent_list:
 			recent_menu.add_item(file.get_file());
-	else: file_menu.set_item_disabled(3, true);
+	else: file_menu.set_item_disabled(4, true);
 	
 func _ready() -> void:
 	apply_shortcuts(file_menu, FILE_MENU_SHORTCUTS);
@@ -90,7 +91,7 @@ func _ready() -> void:
 	apply_shortcuts(settings_menu, SETTINGS_MENU_SHORTCUTS);
 	apply_shortcuts(zoom_menu, ZOOM_MENU_SHORTCUTS);
 	settings_menu.set_item_submenu_node(0, zoom_menu);
-	file_menu.set_item_submenu_node(3, recent_menu);
+	file_menu.set_item_submenu_node(4, recent_menu);
 	file_menu.hide();
 	recent_menu.hide();
 	edit_menu.hide();

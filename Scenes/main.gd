@@ -1,6 +1,7 @@
 extends PanelContainer
 
 enum UnsavedState {NONE, NEW_FILE, OPENING_FILE, OPENING_SPECIFIC_FILE, EXITING_PROGRAM}
+enum OpenState {OPEN, OPEN_IN_NEW_WINDOW}
 enum MessageType {STANDARD, ERROR, ALERT}
 
 const DEFAULT_FONT_SIZE: int = 18;
@@ -33,6 +34,7 @@ var accepting_input: bool = true;
 var cur_file_path: String = "";
 var is_saved: bool = true;
 var unsaved_confirm_state: UnsavedState = UnsavedState.NONE;
+var open_state: OpenState = OpenState.OPEN;
 var wordcount_regex = RegEx.new();
 var previously_selecting: bool = false;
 var file_locked: bool = false;
@@ -59,6 +61,14 @@ func _ready() -> void:
 	wordcount_regex.compile("[\\w-]+");
 	load_config();
 	update_wordcount();
+	var file: String = ""
+	for argument in OS.get_cmdline_args():
+		if argument.is_absolute_path() && !argument.begins_with("uid://"):
+			file = argument;
+	if !file.is_empty():
+		open_file(file);
+		call_deferred("refresh_window_title");
+	
 	
 func _process(_delta: float) -> void:
 	if accepting_input:
@@ -200,6 +210,10 @@ func new_file() -> void:
 		unsaved_confirm_state = UnsavedState.NEW_FILE;
 		unsaved_dialogue.show();
 		
+func new_window(filepath_to_open: String = "") -> void:
+	var args: PackedStringArray = [filepath_to_open]
+	OS.create_instance(args);
+		
 func save(save_as: bool = false) -> void:
 	if save_as || cur_file_path == "":
 		write_file_dialogue.show();
@@ -252,7 +266,6 @@ func clear_console() -> void:
 	var tween = get_tree().create_tween();
 	tween.tween_property(console_container, "modulate:a", 0.0, .5);
 	
-
 func unsaved_followup() -> void:
 	match unsaved_confirm_state:
 		UnsavedState.NEW_FILE:
@@ -331,7 +344,11 @@ func _on_save_file_dialog_canceled() -> void:
 	accepting_input = true;
 	
 func _on_open_file_dialog_file_selected(in_path: String) -> void:
-	open_file(in_path);
+	match open_state:
+		OpenState.OPEN:
+			open_file(in_path);
+		OpenState.OPEN_IN_NEW_WINDOW:
+			new_window(in_path);
 
 func _on_open_file_dialog_canceled() -> void:
 	accepting_input = true;
@@ -341,8 +358,9 @@ func _on_file_menu_id_pressed(id: int) -> void:
 		0: # New
 			new_file();
 		1: # New Window
-			new_file();
+			new_window();
 		2: # Open
+			open_state = OpenState.OPEN;
 			if is_saved:
 				open_file_dialogue.show();
 				accepting_input = false;
@@ -355,8 +373,12 @@ func _on_file_menu_id_pressed(id: int) -> void:
 			save(true);
 		6:
 			get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST);
+		9:
+			open_state = OpenState.OPEN_IN_NEW_WINDOW;
+			open_file_dialogue.show();
 
 func _on_recent_menu_index_pressed(index: int) -> void:
+	open_state = OpenState.OPEN;
 	if is_saved:
 		open_file(recent_files[index]);
 	else:

@@ -35,3 +35,6 @@ func _on_find_button_pressed() -> void:
 	elif down_radio_button.button_pressed:
 		new_search_dict.direction = Global.Direction.DOWN;
 	search_for.emit(new_search_dict);
+
+func _ready() -> void:
+	searchbar.grab_focus();
